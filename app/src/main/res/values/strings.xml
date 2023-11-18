@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Gweiland_Native_Android_Task</string>
+    <string name="exchanges">EXCHANGES</string>
+    <string name="search_cryptocurrency">Search Cryptocurrency</string>
+    <string name="filter">Filter</string>
+    <string name="cryptocurrency">Cryptocurrency</string>
+    <string name="nft">NFT</string>
+    <string name="top_cryptocurrencies">Top Cryptocurrencies</string>
+    <string name="view_all">View All</string>
+    <string name="clear">clear</string>
 </resources>
