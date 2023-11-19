@@ -24,10 +24,10 @@ class MainViewModel @Inject constructor(
     var cryptoImage = mutableStateListOf<ImageResponseDTO>()
 
     init {
-        sendData()
+        receiveData()
     }
 
-    private fun sendData() {
+    private fun receiveData() {
         cryptoResponse.clear()
         repository.receiveCryptoData().onEach { dataState ->
             dataState.data?.data?.let { response ->

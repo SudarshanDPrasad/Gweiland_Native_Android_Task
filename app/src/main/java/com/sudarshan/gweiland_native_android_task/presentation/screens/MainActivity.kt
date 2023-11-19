@@ -84,26 +84,31 @@ class MainActivity : ComponentActivity() {
                                 BottomNavigation(
                                     modifier = Modifier.size(19.dp),
                                     name = "E-shop",
-                                    image = R.drawable.e_shop
+                                    image = R.drawable.e_shop,
+                                    selected = false
                                 )
                                 BottomNavigation(
                                     modifier = Modifier.size(19.dp),
                                     name = "Exchange",
-                                    image = R.drawable.exchange
+                                    image = R.drawable.exchange,
+                                    selected = true
                                 )
                                 BottomNavigation(
                                     modifier = Modifier.size(54.dp),
-                                    image = R.drawable.metaverse_1
+                                    image = R.drawable.metaverse_1,
+                                    selected = false
                                 )
                                 BottomNavigation(
                                     modifier = Modifier.size(19.dp),
                                     name = "Launchpads",
-                                    image = R.drawable.launchpads
+                                    image = R.drawable.launchpads,
+                                    selected = false
                                 )
                                 BottomNavigation(
                                     modifier = Modifier.size(19.dp),
                                     name = "wallet",
-                                    image = R.drawable.wallet
+                                    image = R.drawable.wallet,
+                                    selected = false
                                 )
                             }
                         }
@@ -119,6 +124,7 @@ fun BottomNavigation(
     modifier: Modifier,
     name: String? = null,
     image: Int,
+    selected : Boolean
 ) {
     Column(
         modifier = Modifier.padding(8.dp),
@@ -134,7 +140,11 @@ fun BottomNavigation(
             Text(
                 fontSize = 10.sp,
                 text = name,
-                color = Color.White
+                color = if (selected) {
+                    Color.White
+                } else {
+                    Color.White.copy(alpha = 0.40f)
+                }
             )
         }
     }

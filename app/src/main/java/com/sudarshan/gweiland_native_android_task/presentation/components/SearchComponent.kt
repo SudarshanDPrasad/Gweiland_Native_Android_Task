@@ -37,7 +37,6 @@ fun SearchComponent(
     onFilterClick: (Boolean) -> Unit,
 ) {
     var search by remember { mutableStateOf("") }
-    var filterClicked by remember { mutableStateOf(false) }
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -68,7 +67,7 @@ fun SearchComponent(
             shape = CircleShape,
             colors = TextFieldDefaults.textFieldColors(
                 containerColor = Color(0xFFE6E6E6),
-                textColor = Color.Black
+                focusedTextColor = Color.Black
             )
         )
         Spacer(modifier = Modifier.weight(0.1f))
@@ -79,13 +78,7 @@ fun SearchComponent(
                     interactionSource = MutableInteractionSource(),
                     indication = null
                 ) {
-                    if (filterClicked) {
-                        filterClicked = false
-                        onFilterClick(false)
-                    } else {
-                        filterClicked = true
-                        onFilterClick(true)
-                    }
+                    onFilterClick(true)
                 }
                 .background(
                     color = Color.Transparent,
@@ -105,7 +98,7 @@ fun SearchComponent(
             )
 
             Text(
-                text = if (filterClicked) stringResource(R.string.clear) else stringResource(R.string.filter),
+                text = stringResource(R.string.filter),
                 color = Color(0xFF0b0b0b).copy(alpha = 0.3f),
             )
         }

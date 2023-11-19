@@ -27,7 +27,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import com.sudarshan.gweiland_native_android_task.R
 import com.sudarshan.gweiland_native_android_task.data.response.model.cryptoList.Data
 import com.sudarshan.gweiland_native_android_task.data.response.model.image.ImageResponseDTO
@@ -60,9 +59,9 @@ fun CryptoCurrency(
                     .padding(vertical = 20.dp, horizontal = 26.dp)
             ) {
 
-                AsyncImage(
+                Image(
                     modifier = Modifier.size(46.dp),
-                    model = imageListData.first().data.BTC.first().logo,
+                    painter = painterResource(id = R.drawable.dummy),
                     contentDescription = ""
                 )
                 Spacer(modifier = Modifier.size(15.dp))

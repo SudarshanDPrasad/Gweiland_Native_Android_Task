@@ -8,11 +8,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -24,20 +30,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
 import com.sudarshan.gweiland_native_android_task.R
 import com.sudarshan.gweiland_native_android_task.presentation.components.CryptoCurrency
 import com.sudarshan.gweiland_native_android_task.presentation.components.NFT
 import com.sudarshan.gweiland_native_android_task.presentation.components.SearchComponent
 import com.sudarshan.gweiland_native_android_task.presentation.viewModel.MainViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     viewModel: MainViewModel,
     filtered: (String) -> Unit
 ) {
-    var selectedCurrency by remember { mutableStateOf(0) }
+    var selectedCurrency by remember { mutableIntStateOf(0) }
     var filterClicked by remember { mutableStateOf(false) }
+    var filterSelected by remember { mutableStateOf("") }
     Column(
         modifier = Modifier
             .padding(start = 26.dp, end = 26.dp, top = 26.dp, bottom = 25.dp)
@@ -119,8 +126,9 @@ fun MainScreen(
         }
     }
 
+
     if (filterClicked) {
-        Dialog(onDismissRequest = {
+        ModalBottomSheet(onDismissRequest = {
             filterClicked = false
             filtered("")
         }) {
@@ -130,23 +138,60 @@ fun MainScreen(
                     .fillMaxWidth()
                     .padding(26.dp),
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    modifier = Modifier.clickable {
-                        filterClicked = false
-                        filtered("price")
-                    },
-                    text = "Filter By price "
+                Text(text = "Filter The list ")
+                Divider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(1.dp)
                 )
-                Spacer(modifier = Modifier.size(15.dp))
-                Text(
-                    modifier = Modifier.clickable {
-                        filterClicked = false
-                        filtered("volume")
-                    },
-                    text = "Filter By volume_24h"
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "Filter By price "
+                    )
+                    Checkbox(
+                        checked = filterSelected == "price",
+                        onCheckedChange = {
+                            if (it) {
+                                filterClicked = false
+                                filtered("price")
+                                filterSelected = "price"
+                            } else {
+                                filterClicked = false
+                                filterSelected = ""
+                                filtered("clear")
+                            }
+                        }
+                    )
+                }
+                Spacer(modifier = Modifier.size(5.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "Filter By volume "
+                    )
+                    Checkbox(
+                        checked = filterSelected == "volume",
+                        onCheckedChange = {
+                            if (it) {
+                                filterClicked = false
+                                filtered("volume")
+                                filterSelected = "volume"
+                            } else {
+                                filterClicked = false
+                                filterSelected = ""
+                                filtered("clear")
+                            }
+                        }
+                    )
+                }
             }
         }
     }
